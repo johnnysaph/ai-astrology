@@ -13,9 +13,9 @@ import swisseph as swe
 import os
 
 # === путь к ephe файлам
-ephe_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "ephe"))
-swe.set_ephe_path(ephe_path)
-print("EPHE path used:", ephe_path)
+#ephe_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "ephe"))
+#swe.set_ephe_path(ephe_path)
+#print("EPHE path used:", ephe_path)
 
 # === Основные объекты ===
 
@@ -94,6 +94,9 @@ def get_birth_utc_offset_str(dt_obj, latitude, longitude):
 
 class AstroChart:
     def __init__(self, birth_date: str, birth_time: str, latitude: str, longitude: str):
+        ephe_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "ephe"))
+        swe.set_ephe_path(ephe_path)
+        print("EPHE path used:", ephe_path)
         self.birth_date = birth_date
         self.birth_time = birth_time
         self.latitude = float(latitude)
