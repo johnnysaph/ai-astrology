@@ -1,0 +1,9 @@
+tqdm
+pytz
+polars
+fastapi
+uvicorn
+prettytable
+pyswisseph
+timezonefinder
+git+https://github.com/diliprk/flatlib.git@sidereal
