@@ -13,8 +13,9 @@ import swisseph as swe
 import os
 
 # === путь к ephe файлам
-ephe_path = os.path.join(os.path.dirname(__file__), "ephe")
+ephe_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "ephe"))
 swe.set_ephe_path(ephe_path)
+print("EPHE path used:", ephe_path)
 
 # === Основные объекты ===
 
