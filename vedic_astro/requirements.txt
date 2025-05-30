@@ -6,4 +6,5 @@ uvicorn
 prettytable
 pyswisseph
 timezonefinder
+vedicastro
 git+https://github.com/diliprk/flatlib.git@sidereal
