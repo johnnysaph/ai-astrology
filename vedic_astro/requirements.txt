@@ -7,4 +7,6 @@ prettytable
 pyswisseph
 timezonefinder
 vedicastro
+pandas
+numpy
 git+https://github.com/diliprk/flatlib.git@sidereal
