@@ -9,6 +9,12 @@ from datetime import datetime
 import pytz
 import pandas as pd
 import numpy as np
+import swisseph as swe
+import os
+
+# === путь к ephe файлам
+ephe_path = os.path.join(os.path.dirname(__file__), "ephe")
+swe.set_ephe_path(ephe_path)
 
 # === Основные объекты ===
 
