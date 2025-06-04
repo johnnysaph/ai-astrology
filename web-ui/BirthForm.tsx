@@ -21,26 +21,39 @@ export function BirthForm() {
 
   const isFormValid = Boolean(parseDate(date) && parseTime(time) && lat && lon)
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     const parsedDate = parseDate(date)
     const parsedTime = parseTime(time)
+
     if (!parsedDate || !parsedTime || !lat || !lon) {
       alert("Пожалуйста, заполните все поля корректно")
       return
     }
 
-    const fullDateTime = new Date(
-      parsedDate.getFullYear(),
-      parsedDate.getMonth(),
-      parsedDate.getDate(),
-      parsedTime.hours,
-      parsedTime.minutes,
-      parsedTime.seconds
-    )
+    const formattedDate = date
+    const formattedTime = time
 
-    console.log("Дата и время:", fullDateTime.toISOString())
-    console.log("Координаты:", lat, lon)
+    try {
+      const response = await fetch("https://ai-astrology-api.onrender.com/calculate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          date: formattedDate,
+          time: formattedTime,
+          lat: parseFloat(lat),
+          lon: parseFloat(lon)
+        })
+      })
+
+      const data = await response.json()
+      console.log("🌟 Ответ от сервера:", data)
+    } catch (error) {
+      console.error("Ошибка при вызове API:", error)
+      alert("Произошла ошибка при расчёте карты")
+    }
   }
 
   function parseDate(input: string): Date | null {
