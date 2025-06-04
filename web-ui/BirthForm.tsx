@@ -18,6 +18,7 @@ export function BirthForm() {
   const [lat, setLat] = useState("")
   const [lon, setLon] = useState("")
   const [suggestions, setSuggestions] = useState<PlaceSuggestion[]>([])
+  const [isLoading, setIsLoading] = useState(false)
 
   const isFormValid = Boolean(parseDate(date) && parseTime(time) && lat && lon)
 
@@ -35,6 +36,8 @@ export function BirthForm() {
     const formattedTime = time
 
     try {
+      setIsLoading(true)
+
       const response = await fetch("https://ai-astrology-api.onrender.com/calculate", {
         method: "POST",
         headers: {
@@ -53,6 +56,8 @@ export function BirthForm() {
     } catch (error) {
       console.error("Ошибка при вызове API:", error)
       alert("Произошла ошибка при расчёте карты")
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -100,7 +105,16 @@ export function BirthForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6 max-w-sm mx-auto p-6 bg-white dark:bg-black rounded-xl shadow">
+    <form onSubmit={handleSubmit} className="space-y-6 max-w-sm mx-auto p-6 bg-white dark:bg-black rounded-xl shadow relative">
+      {isLoading && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center"
+          style={{ backgroundColor: "rgba(0, 0, 0, 0.25)" }}
+        >
+          <div className="text-white text-xl">Загрузка...</div>
+        </div>
+      )}
+
       <div className="space-y-2">
         <Label>Дата рождения</Label>
         <Input
@@ -171,7 +185,11 @@ export function BirthForm() {
         />
       </div>
 
-      <Button type="submit" className="w-full" disabled={!isFormValid}>
+      <Button
+        type="submit"
+        className={`w-full transform transition active:scale-95 ${isFormValid ? "cursor-pointer" : "cursor-default"}`}
+        disabled={!isFormValid}
+      >
         Построить карту
       </Button>
     </form>
