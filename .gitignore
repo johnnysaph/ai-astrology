@@ -1,0 +1,33 @@
+# Node
+node_modules/
+.next/
+out/
+.env*
+npm-debug.log*
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+.venv/
+venv/
+.env
+.envrc
+*.egg-info/
+.eggs/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# VSCode
+.vscode/
+
+# macOS / Windows system files
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
