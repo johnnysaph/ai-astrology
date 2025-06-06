@@ -1,0 +1,29 @@
+Краткая дока по файлу vedic_astro_calc.py
+
+Переменные
+
+ZODIAC_SIGNS - список названий знаков на русском
+SIGN_RULERS - словарь с управителем для каждого знака
+D1_TO_D9_MAP - словарь для построения Навамши
+planetName_eng_to_ru - словарь для названий планет на русском
+planet_to_power - словарь для средней силы планет в вирупах: http://vohuman.ru/jyotish/shest-sil.html
+
+
+Функции
+
+get_sign_name - возвращает название знака от градусов
+format_longitude - форматированный вывод знака и градусов
+get_coordinates_by_geo - возвращает координаты по городу и стране #deprecated
+get_birth_timezone - возвращает часовой пояс по месту и времени рождения
+get_utc_birth_datetime - переводит время рождения из локального в UTC
+convert_utc_to_local_string - переводит время рождения из UTC в локальное
+get_vedicAstroAPI_data - возвращает объект для общения с Vedic Astro API: https://github.com/VedAstro/VedAstro.Python
+get_asc - возвращает знак и градумы асцендента по Vedic Astro API # нужно научиться рассчитывать самим
+get_shad_bala - возвращает шадбала для каждой планеты по Vedic Astro API
+get_planets_positions - возвращает положения планет по времени рождения в UTC, используя файлы эфемериды
+parse_ascendant_string - парсит строку асцендента из get_asc
+get_house - возвращает дом, в котором находится знак
+get_house_ruled - возвращает дома, которыми управляет планета
+extend_planet_df - добавляет асцендент и прочие данные
+build_navamsa - строит навамшу
+
