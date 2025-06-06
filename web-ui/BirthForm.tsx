@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
@@ -12,17 +13,18 @@ type PlaceSuggestion = {
 }
 
 export function BirthForm() {
+  const router = useRouter()
+
   const [date, setDate] = useState("")
   const [time, setTime] = useState("")
   const [place, setPlace] = useState("")
   const [lat, setLat] = useState("")
   const [lon, setLon] = useState("")
   const [suggestions, setSuggestions] = useState<PlaceSuggestion[]>([])
-  const [isLoading, setIsLoading] = useState(false)
 
   const isFormValid = Boolean(parseDate(date) && parseTime(time) && lat && lon)
 
-  async function handleSubmit(e: React.FormEvent) {
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     const parsedDate = parseDate(date)
     const parsedTime = parseTime(time)
@@ -32,33 +34,14 @@ export function BirthForm() {
       return
     }
 
-    const formattedDate = date
-    const formattedTime = time
+    const query = new URLSearchParams({
+      date,
+      time,
+      lat,
+      lon
+    }).toString()
 
-    try {
-      setIsLoading(true)
-
-      const response = await fetch("https://ai-astrology-api.onrender.com/calculate", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          date: formattedDate,
-          time: formattedTime,
-          lat: parseFloat(lat),
-          lon: parseFloat(lon)
-        })
-      })
-
-      const data = await response.json()
-      console.log("🌟 Ответ от сервера:", data)
-    } catch (error) {
-      console.error("Ошибка при вызове API:", error)
-      alert("Произошла ошибка при расчёте карты")
-    } finally {
-      setIsLoading(false)
-    }
+    router.push(`/chart?${query}`)
   }
 
   function parseDate(input: string): Date | null {
@@ -106,15 +89,6 @@ export function BirthForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6 max-w-sm mx-auto p-6 bg-white dark:bg-black rounded-xl shadow relative">
-      {isLoading && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center"
-          style={{ backgroundColor: "rgba(0, 0, 0, 0.25)" }}
-        >
-          <div className="text-white text-xl">Загрузка...</div>
-        </div>
-      )}
-
       <div className="space-y-2">
         <Label>Дата рождения</Label>
         <Input
