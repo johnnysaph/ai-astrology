@@ -2,6 +2,7 @@
 
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
+import AstroSvgMap from '@/components/AstroSvgMap'
 
 type PlanetData = {
   "Планета": string
@@ -66,7 +67,13 @@ export default function ChartPage() {
 
   return (
     <div className="max-w-6xl mx-auto mt-10">
-      <h1 className="text-2xl font-bold mb-6 text-center">Натальная карта (табличный вид)</h1>
+      <h1 className="text-2xl font-bold mb-6 text-center">Натальная карта</h1>
+
+      {/* SVG карта с динамической вставкой планет */}
+      <AstroSvgMap planets={data} />
+
+      <h2 className="text-xl font-semibold text-center mt-10 mb-4">Таблица данных (D1)</h2>
+
       <table className="w-full border text-sm">
         <thead className="bg-gray-100">
           <tr>
