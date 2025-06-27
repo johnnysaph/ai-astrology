@@ -10,6 +10,7 @@ import requests
 import pytz
 import pandas as pd
 import numpy as np
+import swisseph as swe
 
 # путь к ephe файлам
 swe.set_ephe_path("./ephe")
