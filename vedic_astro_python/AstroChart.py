@@ -11,6 +11,9 @@ import pytz
 import pandas as pd
 import numpy as np
 
+# путь к ephe файлам
+swe.set_ephe_path("./ephe")
+
 # API keys
 #TIMEZONEDB_API_KEY = "TZBRMOGUBS9J"
 
