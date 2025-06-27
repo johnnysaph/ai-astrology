@@ -2,6 +2,50 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from AstroChart import AstroChart
 from fastapi.middleware.cors import CORSMiddleware
+from datetime import datetime
+
+def build_api_response(charts: dict[str, pd.DataFrame], ayanamsa: str = "Lahiri") -> dict:
+    """
+    Формирует финальный JSON-ready ответ API.
+    charts: словарь DataFrame'ов, например {"rasi": df_rasi, "navamsa": df_navamsa}
+    ayanamsa: название используемой айанамсы
+    """
+    response = {
+        "charts": {},
+        "metadata": {
+            "ayanamsa": ayanamsa,
+            "generated_at": datetime.utcnow().isoformat() + "Z"
+        }
+    }
+
+    for chart_name, df in charts.items():
+        # Преобразуем DataFrame в список словарей
+        planet_list = []
+        for _, row in df.iterrows():
+            planet_data = {
+                "planet": row.get("Планета"),
+                "abbr": row.get("Абр"),
+                "sign": row.get("Знак"),
+                "degree": row.get("Градусы"),
+                "house": row.get("Дом"),
+                "aspects": row.get("Аспекты"),
+                "role": row.get("Роль"),
+                "relation": row.get("Отношение"),
+                "is_retrograde": bool(row.get("Ретроградность")),
+                "nakshatra": row.get("Накшатра"),
+                "sign_lord": row.get("Управитель"),
+                "nakshatra_lord": row.get("Управитель накшатры"),
+                "houses_ruled": row.get("Управляет домами"),
+            }
+            planet_list.append(planet_data)
+        
+        response["charts"][chart_name] = {
+            "type": chart_name.upper(),
+            "planets": planet_list
+        }
+
+    return response
+
 
 app = FastAPI()
 
@@ -24,24 +68,23 @@ class BirthData(BaseModel):
 @app.post("/calculate")
 def calculate(data: BirthData):
     try:
-        chart = AstroChart(
+        astroChart = AstroChart(
             birth_date=data.date,
             birth_time=data.time,
             latitude=str(data.lat),
             longitude=str(data.lon)
         )
 
-        df_rasi = chart.build_rasi_chart()
-        df_rasi = chart.update_chart(df_rasi, filter_main=True)
+        rasi_chart = astroChart.build_rasi_chart()
+        navamsa_chart = astroChart.build_navamsa_chart(rasi_chart)
 
-        # Преобразуем DataFrame в JSON
-        rasi_json = df_rasi.to_dict(orient="records")
+        # API ответ
+        api_result = build_api_response({
+            "rasi": rasi_chart,
+            "navamsa": navamsa_chart
+        }, ayanamsa="Lahiri")
 
-        return {
-            "rasi_chart": rasi_json,
-            "ayanamsa": chart.get_ayanamsa(),
-            "utc_offset": chart.utc_offset
-        }
+        return api_result
 
     except Exception as e:
         return {"error": str(e)}
