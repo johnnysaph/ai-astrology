@@ -3,6 +3,7 @@ from pydantic import BaseModel
 from AstroChart import AstroChart
 from fastapi.middleware.cors import CORSMiddleware
 from datetime import datetime
+import pandas as pd
 
 def build_api_response(charts: dict[str, pd.DataFrame], ayanamsa: str = "Lahiri") -> dict:
     """
