@@ -81,10 +81,14 @@ def calculate(data: BirthData):
         navamsa_chart = astroChart.build_navamsa_chart(rasi_chart)
 
         # API ответ
-        api_result = build_api_response({
-            "rasi": rasi_chart,
-            "navamsa": navamsa_chart
-        }, ayanamsa="Lahiri")
+        api_result = build_api_response(
+            astroChart,
+            {
+                "rasi": rasi_chart,
+                "navamsa": navamsa_chart
+            },
+            ayanamsa="Lahiri"
+        )
 
         return api_result
 
