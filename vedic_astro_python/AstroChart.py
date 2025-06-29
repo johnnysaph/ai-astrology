@@ -10,6 +10,11 @@ import requests
 import pytz
 import pandas as pd
 import numpy as np
+import swisseph as swe
+import os
+
+# путь к ephe файлам
+ETHE_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "ephe"))
 
 # API keys
 #TIMEZONEDB_API_KEY = "TZBRMOGUBS9J"
@@ -444,6 +449,7 @@ def get_planet_role(planet, ascendant_number):
   
 class AstroChart:
     def __init__(self, birth_date: str, birth_time: str, latitude: str, longitude: str, ayanamsa="Lahiri"):
+        swe.set_ephe_path(ETHE_PATH)
         self.birth_date = birth_date
         self.birth_time = birth_time
         self.latitude = float(latitude)
