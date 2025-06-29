@@ -527,6 +527,17 @@ class AstroChart:
         
         return df
 
+    def _build_sign_to_house_map(self, df):
+        ascendant_sign = df.at[0, 'Знак']
+        j = sign_order[ascendant_sign] + 1
+        sign_to_house = {}
+        for i in range(1, 13):
+            sign_to_house[i] = j
+            j = j+1
+            if j > 12:
+                j = j - 12
+        return sign_to_house
+        
     def _translate_chart_to_russian(self, df):
         df_translated = df.copy()
         for col, mapping in {

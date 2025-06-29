@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from datetime import datetime
 import pandas as pd
 
-def build_api_response(charts: dict[str, pd.DataFrame], ayanamsa: str = "Lahiri") -> dict:
+def build_api_response(astroChart: object, charts: dict[str, pd.DataFrame], ayanamsa: str = "Lahiri") -> dict:
     """
     Формирует финальный JSON-ready ответ API.
     charts: словарь DataFrame'ов, например {"rasi": df_rasi, "navamsa": df_navamsa}
@@ -42,7 +42,8 @@ def build_api_response(charts: dict[str, pd.DataFrame], ayanamsa: str = "Lahiri"
         
         response["charts"][chart_name] = {
             "type": chart_name.upper(),
-            "planets": planet_list
+            "planets": planet_list,
+            "signs_by_house": astroChart._build_sign_to_house_map(df)
         }
 
     return response
