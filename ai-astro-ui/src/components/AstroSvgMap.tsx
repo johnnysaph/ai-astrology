@@ -23,14 +23,38 @@ type Props = {
 
 export default function AstroSvgMap({ planets, signsByHouse }: Props) {
   const [highlightedHouses, setHighlightedHouses] = useState<number[]>([]);
+  
+	const sortDirectionByHouse = {
+	  1: "desc",
+	  2: "desc",
+	  3: "asc",
+	  4: "asc",
+	  5: "asc",
+	  6: "asc",
+	  7: "asc",
+	  8: "asc",
+	  9: "desc",
+	  10: "desc",
+	  11: "desc",
+	  12: "desc"
+	};
 
-  const groupedByHouse: Record<number, PlanetData[]> = {};
-  planets.forEach((p) => {
-    if (!groupedByHouse[p.house]) {
-      groupedByHouse[p.house] = [];
-    }
-    groupedByHouse[p.house].push(p);
-  });
+	const groupedByHouse: Record<number, PlanetData[]> = {};
+
+	planets.forEach((p) => {
+	  if (!groupedByHouse[p.house]) {
+		groupedByHouse[p.house] = [];
+	  }
+	  groupedByHouse[p.house].push(p);
+
+	  // Сортируем по градусам после каждого добавления
+	  const dir = sortDirectionByHouse[p.house];
+	  groupedByHouse[p.house].sort((a, b) => {
+		const degA = parseInt(a.degree.replace("+", "").split(":")[0], 10);
+		const degB = parseInt(b.degree.replace("+", "").split(":")[0], 10);
+		return dir === "asc" ? degA - degB : degB - degA;
+	  });
+	});
 
   const aspectsGroupedByHouse: Record<number, string[]> = {};
   planets.forEach((p) => {
@@ -81,6 +105,9 @@ export default function AstroSvgMap({ planets, signsByHouse }: Props) {
 				onClick={() => handlePlanetClick(p.abbr, p.houses_ruled)}
 			  >
 				{p.abbr}
+				{p.is_retrograde && (
+					<tspan baselineShift="super" fontSize="8">R</tspan>
+					)}
 			  </tspan>
 			))}
 		  </text>
@@ -112,6 +139,9 @@ export default function AstroSvgMap({ planets, signsByHouse }: Props) {
 				onClick={() => handlePlanetClick(p.abbr, p.houses_ruled)}
 			  >
 				{p.abbr}
+				{p.is_retrograde && (
+					<tspan baselineShift="super" fontSize="8">R</tspan>
+				)}
 			  </tspan>
 			);
 		  })}
@@ -135,7 +165,7 @@ export default function AstroSvgMap({ planets, signsByHouse }: Props) {
 			y={y}
 			textAnchor="middle"
 			dominantBaseline="middle"
-			fontSize="9"
+			fontSize="8"
 			fill="#555"
 		  >
 			{items.map((p, i) => (
@@ -160,13 +190,14 @@ export default function AstroSvgMap({ planets, signsByHouse }: Props) {
 		  y={y}
 		  textAnchor="middle"
 		  dominantBaseline="middle"
-		  fontSize="9"
+		  fontSize="8"
 		  fill="#555"
 		>
 		  {items.map((p, i) => (
 			<tspan
 			  key={`${house}-${p.abbr}-deg-${i}`}
 			  x={startX + i * stepDx}
+			  fill={p.abbr === "As" ? "#8B0000" : "#555"}
 			>
 			  {`${p.degree.replace("+", "").slice(0, 2)}°`}
 			</tspan>
