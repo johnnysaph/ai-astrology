@@ -22,9 +22,15 @@ type PlanetData = {
 export default function ChartPage() {
   const searchParams = useSearchParams()
   const [data, setData] = useState<{
-    planets: PlanetData[]
-    signsByHouse: Record<number, number>
-  } | null>(null)
+	  rasi: {
+		planets: PlanetData[]
+		signsByHouse: Record<number, number>
+	  }
+	  navamsa: {
+		planets: PlanetData[]
+		signsByHouse: Record<number, number>
+	  }
+	} | null>(null)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
@@ -54,9 +60,15 @@ export default function ChartPage() {
         console.log("🌟 API response:", result)
 
         setData({
-          planets: result.charts.rasi.planets,
-          signsByHouse: result.charts.rasi.signs_by_house
-        })
+		  rasi: {
+			planets: result.charts.rasi.planets,
+			signsByHouse: result.charts.rasi.signs_by_house
+		  },
+		  navamsa: {
+			planets: result.charts.navamsa.planets,
+			signsByHouse: result.charts.navamsa.signs_by_house
+		  }
+		})
       } catch (err) {
         console.error(err)
         setError("Произошла ошибка при загрузке данных.")
@@ -74,18 +86,32 @@ export default function ChartPage() {
     return <p className="text-center mt-10">Загрузка...</p>
   }
 
-  return (
-    <div className="max-w-6xl mx-auto mt-10">
-      <h1 className="text-2xl font-bold mb-6 text-center">Натальная карта</h1>
+	return (
+	  <div className="max-w-6xl mx-auto mt-10">
+		<h1 className="text-2xl font-bold mb-6 text-center">Натальная карта (D1 и D9)</h1>
 
-      <AstroSvgMap
-        planets={data.planets}
-        signsByHouse={data.signsByHouse}
-      />
+		<div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+		  {/* Раши */}
+		  <div>
+			<h2 className="text-xl font-semibold text-center mb-4">Раши (D1)</h2>
+			<AstroSvgMap
+			  planets={data.rasi.planets}
+			  signsByHouse={data.rasi.signsByHouse}
+			/>
+		  </div>
 
-      <h2 className="text-xl font-semibold text-center mt-10 mb-4">Таблица данных (D1)</h2>
+		  {/* Навамша */}
+		  <div>
+			<h2 className="text-xl font-semibold text-center mb-4">Навамша (D9)</h2>
+			<AstroSvgMap
+			  planets={data.navamsa.planets}
+			  signsByHouse={data.navamsa.signsByHouse}
+			/>
+		  </div>
+		</div>
 
-      <table className="w-full border text-sm">
+		<h2 className="text-xl font-semibold text-center mt-10 mb-4">Таблица данных (D1)</h2>
+		<table className="w-full border text-sm">
 		  <thead className="bg-gray-100">
 			<tr>
 			  <th className="p-2 border">Планета</th>
@@ -99,7 +125,7 @@ export default function ChartPage() {
 			</tr>
 		  </thead>
 		  <tbody>
-			{data.planets.map((planet, i) => (
+			{data.rasi.planets.map((planet, i) => (
 			  <tr key={i}>
 				<td className="p-2 border">{planet.planet}</td>
 				<td className="p-2 border">{planet.sign}</td>
@@ -114,7 +140,6 @@ export default function ChartPage() {
 			  </tr>
 			))}
 		  </tbody>
-	  </table>
-    </div>
-  )
-}
+		</table>
+	  </div>
+	)
