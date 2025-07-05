@@ -3,6 +3,13 @@
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import AstroSvgMap from '@/components/AstroSvgMap'
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
+} from "@/components/ui/carousel";
 
 type PlanetData = {
   planet: string
@@ -88,29 +95,34 @@ export default function ChartPage() {
 
 	return (
 	  <div className="max-w-6xl mx-auto mt-10">
-		<h1 className="text-2xl font-bold mb-6 text-center">Натальная карта (D1 и D9)</h1>
+		<h1 className="text-2xl font-bold mb-6 text-center">Натальная карта</h1>
 
-		<div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-		  {/* Раши */}
-		  <div>
-			<h2 className="text-xl font-semibold text-center mb-4">Раши (D1)</h2>
-			<AstroSvgMap
-			  planets={data.rasi.planets}
-			  signsByHouse={data.rasi.signsByHouse}
-			/>
-		  </div>
+		<Carousel className="w-full max-w-3xl mx-auto">
+		  <CarouselContent>
+			<CarouselItem>
+			  <div className="flex flex-col items-center">
+				<h2 className="text-xl font-semibold mb-4">Раши</h2>
+				<AstroSvgMap
+				  planets={data.rasi.planets}
+				  signsByHouse={data.rasi.signsByHouse}
+				/>
+			  </div>
+			</CarouselItem>
+			<CarouselItem>
+			  <div className="flex flex-col items-center">
+				<h2 className="text-xl font-semibold mb-4">Навамша</h2>
+				<AstroSvgMap
+				  planets={data.navamsa.planets}
+				  signsByHouse={data.navamsa.signsByHouse}
+				/>
+			  </div>
+			</CarouselItem>
+		  </CarouselContent>
+		  <CarouselPrevious />
+		  <CarouselNext />
+		</Carousel>
 
-		  {/* Навамша */}
-		  <div>
-			<h2 className="text-xl font-semibold text-center mb-4">Навамша (D9)</h2>
-			<AstroSvgMap
-			  planets={data.navamsa.planets}
-			  signsByHouse={data.navamsa.signsByHouse}
-			/>
-		  </div>
-		</div>
-
-		<h2 className="text-xl font-semibold text-center mt-10 mb-4">Таблица данных (D1)</h2>
+		<h2 className="text-xl font-semibold text-center mt-10 mb-4">Таблица данных Раши</h2>
 		<table className="w-full border text-sm">
 		  <thead className="bg-gray-100">
 			<tr>
