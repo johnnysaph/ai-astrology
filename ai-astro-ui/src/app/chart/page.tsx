@@ -3,6 +3,7 @@
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import AstroSvgMap from '@/components/AstroSvgMap'
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 
 
 type PlanetData = {
@@ -33,7 +34,6 @@ export default function ChartPage() {
 	  }
 	} | null>(null)
   const [error, setError] = useState<string | null>(null)
-  const [activeTab, setActiveTab] = useState<0 | 1>(0);
 
   useEffect(() => {
     const date = searchParams.get('date')
@@ -91,82 +91,102 @@ export default function ChartPage() {
 	return (
 	  <div className="max-w-6xl mx-auto mt-10">
 		<h1 className="text-2xl font-bold mb-6 text-center">Натальная карта</h1>
-		<div className="flex justify-center gap-4 mb-6">
-		  <button
-			onClick={() => setActiveTab(0)}
-			className={`px-4 py-2 rounded ${
-			  activeTab === 0
-				? "bg-blue-600 text-white"
-				: "bg-gray-200 text-gray-800"
-			}`}
-		  >
-			Раши (D1)
-		  </button>
-		  <button
-			onClick={() => setActiveTab(1)}
-			className={`px-4 py-2 rounded ${
-			  activeTab === 1
-				? "bg-blue-600 text-white"
-				: "bg-gray-200 text-gray-800"
-			}`}
-		  >
-			Навамша (D9)
-		  </button>
-		</div>
+		
+		<Tabs defaultValue="rasi" className="w-full">
+		 <TabsList className="mb-6 mx-auto">
+			<TabsTrigger value="rasi" className="px-4">Раши</TabsTrigger>
+			<TabsTrigger value="navamsa" className="px-4">Навамша</TabsTrigger>
+		  </TabsList>
 
-		<div className="flex flex-col items-center">
-		  {activeTab === 0 ? (
-			<>
-			  <h2 className="text-xl font-semibold mb-4">Раши (D1)</h2>
+		  <TabsContent value="rasi">
+			<div className="flex flex-col items-center">
+			  <h2 className="text-xl font-semibold mb-4">Раши</h2>
 			  <AstroSvgMap
 				planets={data.rasi.planets}
 				signsByHouse={data.rasi.signsByHouse}
 			  />
-			</>
-		  ) : (
-			<>
-			  <h2 className="text-xl font-semibold mb-4">Навамша (D9)</h2>
+
+			  <h2 className="text-xl font-semibold text-center mt-10 mb-4">Раши</h2>
+			  {/* Таблица D1 */}
+			  <table className="w-full border text-sm">
+				<thead className="bg-gray-100">
+				  <tr>
+					<th className="p-2 border">Планета</th>
+					<th className="p-2 border">Знак</th>
+					<th className="p-2 border">Градус</th>
+					<th className="p-2 border">Дом</th>
+					<th className="p-2 border">Управитель</th>
+					<th className="p-2 border">Управляет домами</th>
+					<th className="p-2 border">Отношение</th>
+					<th className="p-2 border">Роль</th>
+				  </tr>
+				</thead>
+				<tbody>
+				  {data.rasi.planets.map((planet, i) => (
+					<tr key={i}>
+					  <td className="p-2 border">{planet.planet}</td>
+					  <td className="p-2 border">{planet.sign}</td>
+					  <td className="p-2 border">{planet.degree}</td>
+					  <td className="p-2 border">{planet.house}</td>
+					  <td className="p-2 border">{planet.sign_lord}</td>
+					  <td className="p-2 border">
+						{planet.houses_ruled.length
+						  ? planet.houses_ruled.join(", ")
+						  : "-"}
+					  </td>
+					  <td className="p-2 border">{planet.relation || "-"}</td>
+					  <td className="p-2 border">{planet.role || "-"}</td>
+					</tr>
+				  ))}
+				</tbody>
+			  </table>
+			</div>
+		  </TabsContent>
+
+		  <TabsContent value="navamsa">
+			<div className="flex flex-col items-center">
+			  <h2 className="text-xl font-semibold mb-4">Навамша</h2>
 			  <AstroSvgMap
 				planets={data.navamsa.planets}
 				signsByHouse={data.navamsa.signsByHouse}
 			  />
-			</>
-		  )}
-		</div>
 
-		<h2 className="text-xl font-semibold text-center mt-10 mb-4">
-		  {activeTab === 0 ? "Таблица данных (D1)" : "Таблица данных (D9)"}
-		</h2>
-
-		<table className="w-full border text-sm">
-		  <thead className="bg-gray-100">
-			<tr>
-			  <th className="p-2 border">Планета</th>
-			  <th className="p-2 border">Знак</th>
-			  <th className="p-2 border">Градус</th>
-			  <th className="p-2 border">Дом</th>
-			  <th className="p-2 border">Управитель</th>
-			  <th className="p-2 border">Управляет домами</th>
-			  <th className="p-2 border">Отношение</th>
-			  <th className="p-2 border">Роль</th>
-			</tr>
-		  </thead>
-		  <tbody>
-			{(activeTab === 0 ? data.rasi.planets : data.navamsa.planets).map((planet, i) => (
-			  <tr key={i}>
-				<td className="p-2 border">{planet.planet}</td>
-				<td className="p-2 border">{planet.sign}</td>
-				<td className="p-2 border">{planet.degree}</td>
-				<td className="p-2 border">{planet.house}</td>
-				<td className="p-2 border">{planet.sign_lord}</td>
-				<td className="p-2 border">
-				  {planet.houses_ruled.length ? planet.houses_ruled.join(", ") : "-"}
-				</td>
-				<td className="p-2 border">{planet.relation || "-"}</td>
-				<td className="p-2 border">{planet.role || "-"}</td>
-			  </tr>
-			))}
-		  </tbody>
-		</table>
+			  <h2 className="text-xl font-semibold text-center mt-10 mb-4">Навамша</h2>
+			  {/* Таблица D9 */}
+			  <table className="w-full border text-sm">
+				<thead className="bg-gray-100">
+				  <tr>
+					<th className="p-2 border">Планета</th>
+					<th className="p-2 border">Знак</th>
+					<th className="p-2 border">Градус</th>
+					<th className="p-2 border">Дом</th>
+					<th className="p-2 border">Управитель</th>
+					<th className="p-2 border">Управляет домами</th>
+					<th className="p-2 border">Отношение</th>
+					<th className="p-2 border">Роль</th>
+				  </tr>
+				</thead>
+				<tbody>
+				  {data.navamsa.planets.map((planet, i) => (
+					<tr key={i}>
+					  <td className="p-2 border">{planet.planet}</td>
+					  <td className="p-2 border">{planet.sign}</td>
+					  <td className="p-2 border">{planet.degree}</td>
+					  <td className="p-2 border">{planet.house}</td>
+					  <td className="p-2 border">{planet.sign_lord}</td>
+					  <td className="p-2 border">
+						{planet.houses_ruled.length
+						  ? planet.houses_ruled.join(", ")
+						  : "-"}
+					  </td>
+					  <td className="p-2 border">{planet.relation || "-"}</td>
+					  <td className="p-2 border">{planet.role || "-"}</td>
+					</tr>
+				  ))}
+				</tbody>
+			  </table>
+			</div>
+		  </TabsContent>
+		</Tabs>
 	  </div>
 	)
