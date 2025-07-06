@@ -4,6 +4,14 @@ import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import AstroSvgMap from '@/components/AstroSvgMap'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import {
+  Table,
+  TableHeader,
+  TableBody,
+  TableRow,
+  TableHead,
+  TableCell,
+} from "@/components/ui/table";
 
 
 type PlanetData = {
@@ -108,38 +116,38 @@ export default function ChartPage() {
 
 			  <h2 className="text-xl font-semibold text-center mt-10 mb-4">Раши</h2>
 			  {/* Таблица D1 */}
-			  <table className="w-full border text-sm">
-				<thead className="bg-gray-100">
-				  <tr>
-					<th className="p-2 border">Планета</th>
-					<th className="p-2 border">Знак</th>
-					<th className="p-2 border">Градус</th>
-					<th className="p-2 border">Дом</th>
-					<th className="p-2 border">Управитель</th>
-					<th className="p-2 border">Управляет домами</th>
-					<th className="p-2 border">Отношение</th>
-					<th className="p-2 border">Роль</th>
-				  </tr>
-				</thead>
-				<tbody>
-				  {data.rasi.planets.map((planet, i) => (
-					<tr key={i}>
-					  <td className="p-2 border">{planet.planet}</td>
-					  <td className="p-2 border">{planet.sign}</td>
-					  <td className="p-2 border">{planet.degree}</td>
-					  <td className="p-2 border">{planet.house}</td>
-					  <td className="p-2 border">{planet.sign_lord}</td>
-					  <td className="p-2 border">
-						{planet.houses_ruled.length
-						  ? planet.houses_ruled.join(", ")
-						  : "-"}
-					  </td>
-					  <td className="p-2 border">{planet.relation || "-"}</td>
-					  <td className="p-2 border">{planet.role || "-"}</td>
-					</tr>
-				  ))}
-				</tbody>
-			  </table>
+			  <Table>
+				  <TableHeader>
+					<TableRow>
+					  <TableHead>Планета</TableHead>
+					  <TableHead>Знак</TableHead>
+					  <TableHead>Градус</TableHead>
+					  <TableHead>Дом</TableHead>
+					  <TableHead>Управитель</TableHead>
+					  <TableHead>Управляет домами</TableHead>
+					  <TableHead>Отношение</TableHead>
+					  <TableHead>Роль</TableHead>
+					</TableRow>
+				  </TableHeader>
+				  <TableBody>
+					{data.rasi.planets.map((planet, i) => (
+					  <TableRow key={i}>
+						<TableCell>{planet.planet}</TableCell>
+						<TableCell>{planet.sign}</TableCell>
+						<TableCell>{planet.degree}</TableCell>
+						<TableCell>{planet.house}</TableCell>
+						<TableCell>{planet.sign_lord}</TableCell>
+						<TableCell>
+						  {planet.houses_ruled.length
+							? planet.houses_ruled.join(", ")
+							: "-"}
+						</TableCell>
+						<TableCell>{planet.relation || "-"}</TableCell>
+						<TableCell>{planet.role || "-"}</TableCell>
+					  </TableRow>
+					))}
+				  </TableBody>
+				</Table>
 			</div>
 		  </TabsContent>
 
@@ -153,38 +161,38 @@ export default function ChartPage() {
 
 			  <h2 className="text-xl font-semibold text-center mt-10 mb-4">Навамша</h2>
 			  {/* Таблица D9 */}
-			  <table className="w-full border text-sm">
-				<thead className="bg-gray-100">
-				  <tr>
-					<th className="p-2 border">Планета</th>
-					<th className="p-2 border">Знак</th>
-					<th className="p-2 border">Градус</th>
-					<th className="p-2 border">Дом</th>
-					<th className="p-2 border">Управитель</th>
-					<th className="p-2 border">Управляет домами</th>
-					<th className="p-2 border">Отношение</th>
-					<th className="p-2 border">Роль</th>
-				  </tr>
-				</thead>
-				<tbody>
-				  {data.navamsa.planets.map((planet, i) => (
-					<tr key={i}>
-					  <td className="p-2 border">{planet.planet}</td>
-					  <td className="p-2 border">{planet.sign}</td>
-					  <td className="p-2 border">{planet.degree}</td>
-					  <td className="p-2 border">{planet.house}</td>
-					  <td className="p-2 border">{planet.sign_lord}</td>
-					  <td className="p-2 border">
-						{planet.houses_ruled.length
-						  ? planet.houses_ruled.join(", ")
-						  : "-"}
-					  </td>
-					  <td className="p-2 border">{planet.relation || "-"}</td>
-					  <td className="p-2 border">{planet.role || "-"}</td>
-					</tr>
-				  ))}
-				</tbody>
-			  </table>
+			  <Table>
+				  <TableHeader>
+					<TableRow>
+					  <TableHead>Планета</TableHead>
+					  <TableHead>Знак</TableHead>
+					  <TableHead>Градус</TableHead>
+					  <TableHead>Дом</TableHead>
+					  <TableHead>Управитель</TableHead>
+					  <TableHead>Управляет домами</TableHead>
+					  <TableHead>Отношение</TableHead>
+					  <TableHead>Роль</TableHead>
+					</TableRow>
+				  </TableHeader>
+				  <TableBody>
+					{data.navamsa.planets.map((planet, i) => (
+					  <TableRow key={i}>
+						<TableCell>{planet.planet}</TableCell>
+						<TableCell>{planet.sign}</TableCell>
+						<TableCell>{planet.degree}</TableCell>
+						<TableCell>{planet.house}</TableCell>
+						<TableCell>{planet.sign_lord}</TableCell>
+						<TableCell>
+						  {planet.houses_ruled.length
+							? planet.houses_ruled.join(", ")
+							: "-"}
+						</TableCell>
+						<TableCell>{planet.relation || "-"}</TableCell>
+						<TableCell>{planet.role || "-"}</TableCell>
+					  </TableRow>
+					))}
+				  </TableBody>
+				</Table>
 			</div>
 		  </TabsContent>
 		</Tabs>
