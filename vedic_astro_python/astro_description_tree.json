@@ -1,0 +1,1188 @@
+{
+  "planets": {
+    "Солнце": {
+      "in_sign": {
+        "Овен": {
+          "description": ""
+        },
+        "Телец": {
+          "description": ""
+        },
+        "Близнецы": {
+          "description": ""
+        },
+        "Рак": {
+          "description": ""
+        },
+        "Лев": {
+          "description": ""
+        },
+        "Дева": {
+          "description": ""
+        },
+        "Весы": {
+          "description": ""
+        },
+        "Скорпион": {
+          "description": ""
+        },
+        "Стрелец": {
+          "description": ""
+        },
+        "Козерог": {
+          "description": ""
+        },
+        "Водолей": {
+          "description": ""
+        },
+        "Рыбы": {
+          "description": ""
+        }
+      },
+      "in_house": {
+        "1": {
+          "description": ""
+        },
+        "2": {
+          "description": ""
+        },
+        "3": {
+          "description": ""
+        },
+        "4": {
+          "description": ""
+        },
+        "5": {
+          "description": ""
+        },
+        "6": {
+          "description": ""
+        },
+        "7": {
+          "description": ""
+        },
+        "8": {
+          "description": ""
+        },
+        "9": {
+          "description": ""
+        },
+        "10": {
+          "description": ""
+        },
+        "11": {
+          "description": ""
+        },
+        "12": {
+          "description": ""
+        }
+      }
+    },
+    "Луна": {
+      "in_sign": {
+        "Овен": {
+          "description": ""
+        },
+        "Телец": {
+          "description": ""
+        },
+        "Близнецы": {
+          "description": ""
+        },
+        "Рак": {
+          "description": ""
+        },
+        "Лев": {
+          "description": ""
+        },
+        "Дева": {
+          "description": ""
+        },
+        "Весы": {
+          "description": ""
+        },
+        "Скорпион": {
+          "description": ""
+        },
+        "Стрелец": {
+          "description": ""
+        },
+        "Козерог": {
+          "description": ""
+        },
+        "Водолей": {
+          "description": ""
+        },
+        "Рыбы": {
+          "description": ""
+        }
+      },
+      "in_house": {
+        "1": {
+          "description": ""
+        },
+        "2": {
+          "description": ""
+        },
+        "3": {
+          "description": ""
+        },
+        "4": {
+          "description": ""
+        },
+        "5": {
+          "description": ""
+        },
+        "6": {
+          "description": ""
+        },
+        "7": {
+          "description": ""
+        },
+        "8": {
+          "description": ""
+        },
+        "9": {
+          "description": ""
+        },
+        "10": {
+          "description": ""
+        },
+        "11": {
+          "description": ""
+        },
+        "12": {
+          "description": ""
+        }
+      }
+    },
+    "Марс": {
+      "in_sign": {
+        "Овен": {
+          "description": ""
+        },
+        "Телец": {
+          "description": ""
+        },
+        "Близнецы": {
+          "description": ""
+        },
+        "Рак": {
+          "description": ""
+        },
+        "Лев": {
+          "description": ""
+        },
+        "Дева": {
+          "description": ""
+        },
+        "Весы": {
+          "description": ""
+        },
+        "Скорпион": {
+          "description": ""
+        },
+        "Стрелец": {
+          "description": ""
+        },
+        "Козерог": {
+          "description": ""
+        },
+        "Водолей": {
+          "description": ""
+        },
+        "Рыбы": {
+          "description": ""
+        }
+      },
+      "in_house": {
+        "1": {
+          "description": ""
+        },
+        "2": {
+          "description": ""
+        },
+        "3": {
+          "description": ""
+        },
+        "4": {
+          "description": ""
+        },
+        "5": {
+          "description": ""
+        },
+        "6": {
+          "description": ""
+        },
+        "7": {
+          "description": ""
+        },
+        "8": {
+          "description": ""
+        },
+        "9": {
+          "description": ""
+        },
+        "10": {
+          "description": ""
+        },
+        "11": {
+          "description": ""
+        },
+        "12": {
+          "description": ""
+        }
+      }
+    },
+    "Меркурий": {
+      "in_sign": {
+        "Овен": {
+          "description": ""
+        },
+        "Телец": {
+          "description": ""
+        },
+        "Близнецы": {
+          "description": ""
+        },
+        "Рак": {
+          "description": ""
+        },
+        "Лев": {
+          "description": ""
+        },
+        "Дева": {
+          "description": ""
+        },
+        "Весы": {
+          "description": ""
+        },
+        "Скорпион": {
+          "description": ""
+        },
+        "Стрелец": {
+          "description": ""
+        },
+        "Козерог": {
+          "description": ""
+        },
+        "Водолей": {
+          "description": ""
+        },
+        "Рыбы": {
+          "description": ""
+        }
+      },
+      "in_house": {
+        "1": {
+          "description": ""
+        },
+        "2": {
+          "description": ""
+        },
+        "3": {
+          "description": ""
+        },
+        "4": {
+          "description": ""
+        },
+        "5": {
+          "description": ""
+        },
+        "6": {
+          "description": ""
+        },
+        "7": {
+          "description": ""
+        },
+        "8": {
+          "description": ""
+        },
+        "9": {
+          "description": ""
+        },
+        "10": {
+          "description": ""
+        },
+        "11": {
+          "description": ""
+        },
+        "12": {
+          "description": ""
+        }
+      }
+    },
+    "Юпитер": {
+      "in_sign": {
+        "Овен": {
+          "description": ""
+        },
+        "Телец": {
+          "description": ""
+        },
+        "Близнецы": {
+          "description": ""
+        },
+        "Рак": {
+          "description": ""
+        },
+        "Лев": {
+          "description": ""
+        },
+        "Дева": {
+          "description": ""
+        },
+        "Весы": {
+          "description": ""
+        },
+        "Скорпион": {
+          "description": ""
+        },
+        "Стрелец": {
+          "description": ""
+        },
+        "Козерог": {
+          "description": ""
+        },
+        "Водолей": {
+          "description": ""
+        },
+        "Рыбы": {
+          "description": ""
+        }
+      },
+      "in_house": {
+        "1": {
+          "description": ""
+        },
+        "2": {
+          "description": ""
+        },
+        "3": {
+          "description": ""
+        },
+        "4": {
+          "description": ""
+        },
+        "5": {
+          "description": ""
+        },
+        "6": {
+          "description": ""
+        },
+        "7": {
+          "description": ""
+        },
+        "8": {
+          "description": ""
+        },
+        "9": {
+          "description": ""
+        },
+        "10": {
+          "description": ""
+        },
+        "11": {
+          "description": ""
+        },
+        "12": {
+          "description": ""
+        }
+      }
+    },
+    "Венера": {
+      "in_sign": {
+        "Овен": {
+          "description": ""
+        },
+        "Телец": {
+          "description": ""
+        },
+        "Близнецы": {
+          "description": ""
+        },
+        "Рак": {
+          "description": ""
+        },
+        "Лев": {
+          "description": ""
+        },
+        "Дева": {
+          "description": ""
+        },
+        "Весы": {
+          "description": ""
+        },
+        "Скорпион": {
+          "description": ""
+        },
+        "Стрелец": {
+          "description": ""
+        },
+        "Козерог": {
+          "description": ""
+        },
+        "Водолей": {
+          "description": ""
+        },
+        "Рыбы": {
+          "description": ""
+        }
+      },
+      "in_house": {
+        "1": {
+          "description": ""
+        },
+        "2": {
+          "description": ""
+        },
+        "3": {
+          "description": ""
+        },
+        "4": {
+          "description": ""
+        },
+        "5": {
+          "description": ""
+        },
+        "6": {
+          "description": ""
+        },
+        "7": {
+          "description": ""
+        },
+        "8": {
+          "description": ""
+        },
+        "9": {
+          "description": ""
+        },
+        "10": {
+          "description": ""
+        },
+        "11": {
+          "description": ""
+        },
+        "12": {
+          "description": ""
+        }
+      }
+    },
+    "Сатурн": {
+      "in_sign": {
+        "Овен": {
+          "description": ""
+        },
+        "Телец": {
+          "description": ""
+        },
+        "Близнецы": {
+          "description": ""
+        },
+        "Рак": {
+          "description": ""
+        },
+        "Лев": {
+          "description": ""
+        },
+        "Дева": {
+          "description": ""
+        },
+        "Весы": {
+          "description": ""
+        },
+        "Скорпион": {
+          "description": ""
+        },
+        "Стрелец": {
+          "description": ""
+        },
+        "Козерог": {
+          "description": ""
+        },
+        "Водолей": {
+          "description": ""
+        },
+        "Рыбы": {
+          "description": ""
+        }
+      },
+      "in_house": {
+        "1": {
+          "description": ""
+        },
+        "2": {
+          "description": ""
+        },
+        "3": {
+          "description": ""
+        },
+        "4": {
+          "description": ""
+        },
+        "5": {
+          "description": ""
+        },
+        "6": {
+          "description": ""
+        },
+        "7": {
+          "description": ""
+        },
+        "8": {
+          "description": ""
+        },
+        "9": {
+          "description": ""
+        },
+        "10": {
+          "description": ""
+        },
+        "11": {
+          "description": ""
+        },
+        "12": {
+          "description": ""
+        }
+      }
+    },
+    "Раху": {
+      "in_sign": {
+        "Овен": {
+          "description": ""
+        },
+        "Телец": {
+          "description": ""
+        },
+        "Близнецы": {
+          "description": ""
+        },
+        "Рак": {
+          "description": ""
+        },
+        "Лев": {
+          "description": ""
+        },
+        "Дева": {
+          "description": ""
+        },
+        "Весы": {
+          "description": ""
+        },
+        "Скорпион": {
+          "description": ""
+        },
+        "Стрелец": {
+          "description": ""
+        },
+        "Козерог": {
+          "description": ""
+        },
+        "Водолей": {
+          "description": ""
+        },
+        "Рыбы": {
+          "description": ""
+        }
+      },
+      "in_house": {
+        "1": {
+          "description": ""
+        },
+        "2": {
+          "description": ""
+        },
+        "3": {
+          "description": ""
+        },
+        "4": {
+          "description": ""
+        },
+        "5": {
+          "description": ""
+        },
+        "6": {
+          "description": ""
+        },
+        "7": {
+          "description": ""
+        },
+        "8": {
+          "description": ""
+        },
+        "9": {
+          "description": ""
+        },
+        "10": {
+          "description": ""
+        },
+        "11": {
+          "description": ""
+        },
+        "12": {
+          "description": ""
+        }
+      }
+    },
+    "Кету": {
+      "in_sign": {
+        "Овен": {
+          "description": ""
+        },
+        "Телец": {
+          "description": ""
+        },
+        "Близнецы": {
+          "description": ""
+        },
+        "Рак": {
+          "description": ""
+        },
+        "Лев": {
+          "description": ""
+        },
+        "Дева": {
+          "description": ""
+        },
+        "Весы": {
+          "description": ""
+        },
+        "Скорпион": {
+          "description": ""
+        },
+        "Стрелец": {
+          "description": ""
+        },
+        "Козерог": {
+          "description": ""
+        },
+        "Водолей": {
+          "description": ""
+        },
+        "Рыбы": {
+          "description": ""
+        }
+      },
+      "in_house": {
+        "1": {
+          "description": ""
+        },
+        "2": {
+          "description": ""
+        },
+        "3": {
+          "description": ""
+        },
+        "4": {
+          "description": ""
+        },
+        "5": {
+          "description": ""
+        },
+        "6": {
+          "description": ""
+        },
+        "7": {
+          "description": ""
+        },
+        "8": {
+          "description": ""
+        },
+        "9": {
+          "description": ""
+        },
+        "10": {
+          "description": ""
+        },
+        "11": {
+          "description": ""
+        },
+        "12": {
+          "description": ""
+        }
+      }
+    }
+  },
+  "houses": {
+    "1": {
+      "lord_in_house": {
+        "1": {
+          "description": ""
+        },
+        "2": {
+          "description": ""
+        },
+        "3": {
+          "description": ""
+        },
+        "4": {
+          "description": ""
+        },
+        "5": {
+          "description": ""
+        },
+        "6": {
+          "description": ""
+        },
+        "7": {
+          "description": ""
+        },
+        "8": {
+          "description": ""
+        },
+        "9": {
+          "description": ""
+        },
+        "10": {
+          "description": ""
+        },
+        "11": {
+          "description": ""
+        },
+        "12": {
+          "description": ""
+        }
+      }
+    },
+    "2": {
+      "lord_in_house": {
+        "1": {
+          "description": ""
+        },
+        "2": {
+          "description": ""
+        },
+        "3": {
+          "description": ""
+        },
+        "4": {
+          "description": ""
+        },
+        "5": {
+          "description": ""
+        },
+        "6": {
+          "description": ""
+        },
+        "7": {
+          "description": ""
+        },
+        "8": {
+          "description": ""
+        },
+        "9": {
+          "description": ""
+        },
+        "10": {
+          "description": ""
+        },
+        "11": {
+          "description": ""
+        },
+        "12": {
+          "description": ""
+        }
+      }
+    },
+    "3": {
+      "lord_in_house": {
+        "1": {
+          "description": ""
+        },
+        "2": {
+          "description": ""
+        },
+        "3": {
+          "description": ""
+        },
+        "4": {
+          "description": ""
+        },
+        "5": {
+          "description": ""
+        },
+        "6": {
+          "description": ""
+        },
+        "7": {
+          "description": ""
+        },
+        "8": {
+          "description": ""
+        },
+        "9": {
+          "description": ""
+        },
+        "10": {
+          "description": ""
+        },
+        "11": {
+          "description": ""
+        },
+        "12": {
+          "description": ""
+        }
+      }
+    },
+    "4": {
+      "lord_in_house": {
+        "1": {
+          "description": ""
+        },
+        "2": {
+          "description": ""
+        },
+        "3": {
+          "description": ""
+        },
+        "4": {
+          "description": ""
+        },
+        "5": {
+          "description": ""
+        },
+        "6": {
+          "description": ""
+        },
+        "7": {
+          "description": ""
+        },
+        "8": {
+          "description": ""
+        },
+        "9": {
+          "description": ""
+        },
+        "10": {
+          "description": ""
+        },
+        "11": {
+          "description": ""
+        },
+        "12": {
+          "description": ""
+        }
+      }
+    },
+    "5": {
+      "lord_in_house": {
+        "1": {
+          "description": ""
+        },
+        "2": {
+          "description": ""
+        },
+        "3": {
+          "description": ""
+        },
+        "4": {
+          "description": ""
+        },
+        "5": {
+          "description": ""
+        },
+        "6": {
+          "description": ""
+        },
+        "7": {
+          "description": ""
+        },
+        "8": {
+          "description": ""
+        },
+        "9": {
+          "description": ""
+        },
+        "10": {
+          "description": ""
+        },
+        "11": {
+          "description": ""
+        },
+        "12": {
+          "description": ""
+        }
+      }
+    },
+    "6": {
+      "lord_in_house": {
+        "1": {
+          "description": ""
+        },
+        "2": {
+          "description": ""
+        },
+        "3": {
+          "description": ""
+        },
+        "4": {
+          "description": ""
+        },
+        "5": {
+          "description": ""
+        },
+        "6": {
+          "description": ""
+        },
+        "7": {
+          "description": ""
+        },
+        "8": {
+          "description": ""
+        },
+        "9": {
+          "description": ""
+        },
+        "10": {
+          "description": ""
+        },
+        "11": {
+          "description": ""
+        },
+        "12": {
+          "description": ""
+        }
+      }
+    },
+    "7": {
+      "lord_in_house": {
+        "1": {
+          "description": ""
+        },
+        "2": {
+          "description": ""
+        },
+        "3": {
+          "description": ""
+        },
+        "4": {
+          "description": ""
+        },
+        "5": {
+          "description": ""
+        },
+        "6": {
+          "description": ""
+        },
+        "7": {
+          "description": ""
+        },
+        "8": {
+          "description": ""
+        },
+        "9": {
+          "description": ""
+        },
+        "10": {
+          "description": ""
+        },
+        "11": {
+          "description": ""
+        },
+        "12": {
+          "description": ""
+        }
+      }
+    },
+    "8": {
+      "lord_in_house": {
+        "1": {
+          "description": ""
+        },
+        "2": {
+          "description": ""
+        },
+        "3": {
+          "description": ""
+        },
+        "4": {
+          "description": ""
+        },
+        "5": {
+          "description": ""
+        },
+        "6": {
+          "description": ""
+        },
+        "7": {
+          "description": ""
+        },
+        "8": {
+          "description": ""
+        },
+        "9": {
+          "description": ""
+        },
+        "10": {
+          "description": ""
+        },
+        "11": {
+          "description": ""
+        },
+        "12": {
+          "description": ""
+        }
+      }
+    },
+    "9": {
+      "lord_in_house": {
+        "1": {
+          "description": ""
+        },
+        "2": {
+          "description": ""
+        },
+        "3": {
+          "description": ""
+        },
+        "4": {
+          "description": ""
+        },
+        "5": {
+          "description": ""
+        },
+        "6": {
+          "description": ""
+        },
+        "7": {
+          "description": ""
+        },
+        "8": {
+          "description": ""
+        },
+        "9": {
+          "description": ""
+        },
+        "10": {
+          "description": ""
+        },
+        "11": {
+          "description": ""
+        },
+        "12": {
+          "description": ""
+        }
+      }
+    },
+    "10": {
+      "lord_in_house": {
+        "1": {
+          "description": ""
+        },
+        "2": {
+          "description": ""
+        },
+        "3": {
+          "description": ""
+        },
+        "4": {
+          "description": ""
+        },
+        "5": {
+          "description": ""
+        },
+        "6": {
+          "description": ""
+        },
+        "7": {
+          "description": ""
+        },
+        "8": {
+          "description": ""
+        },
+        "9": {
+          "description": ""
+        },
+        "10": {
+          "description": ""
+        },
+        "11": {
+          "description": ""
+        },
+        "12": {
+          "description": ""
+        }
+      }
+    },
+    "11": {
+      "lord_in_house": {
+        "1": {
+          "description": ""
+        },
+        "2": {
+          "description": ""
+        },
+        "3": {
+          "description": ""
+        },
+        "4": {
+          "description": ""
+        },
+        "5": {
+          "description": ""
+        },
+        "6": {
+          "description": ""
+        },
+        "7": {
+          "description": ""
+        },
+        "8": {
+          "description": ""
+        },
+        "9": {
+          "description": ""
+        },
+        "10": {
+          "description": ""
+        },
+        "11": {
+          "description": ""
+        },
+        "12": {
+          "description": ""
+        }
+      }
+    },
+    "12": {
+      "lord_in_house": {
+        "1": {
+          "description": ""
+        },
+        "2": {
+          "description": ""
+        },
+        "3": {
+          "description": ""
+        },
+        "4": {
+          "description": ""
+        },
+        "5": {
+          "description": ""
+        },
+        "6": {
+          "description": ""
+        },
+        "7": {
+          "description": ""
+        },
+        "8": {
+          "description": ""
+        },
+        "9": {
+          "description": ""
+        },
+        "10": {
+          "description": ""
+        },
+        "11": {
+          "description": ""
+        },
+        "12": {
+          "description": ""
+        }
+      }
+    }
+  }
+}
