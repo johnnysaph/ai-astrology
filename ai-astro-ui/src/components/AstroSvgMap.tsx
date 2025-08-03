@@ -92,7 +92,7 @@ export default function AstroSvgMap({ planets, signsByHouse }: Props) {
 			textAnchor="middle"
 			dominantBaseline="middle"
 			fontSize="15"
-			fill="black"
+			fill="currentColor"
 		  >
 			{items.map((p, i) => (
 			  <tspan
@@ -100,7 +100,7 @@ export default function AstroSvgMap({ planets, signsByHouse }: Props) {
 				x={x}
 				dy={i === 0 ? `${initialDy}px` : `${stepDy}px`}
 				fontWeight={p.abbr === "As" ? "bold" : "normal"}
-				fill={p.abbr === "As" ? "#8B0000" : "black"}
+				fill={p.abbr === "As" ? "#8B0000" : "currentColor"}
 				style={{ cursor: "pointer" }}
 				onClick={() => handlePlanetClick(p.abbr, p.houses_ruled)}
 			  >
@@ -124,7 +124,7 @@ export default function AstroSvgMap({ planets, signsByHouse }: Props) {
 		  textAnchor="middle"
 		  dominantBaseline="middle"
 		  fontSize="15"
-		  fill="black"
+		  fill="currentColor"
 		>
 		  {items.map((p, i) => {
 			const thisX = startX + i * stepDx;
@@ -134,7 +134,7 @@ export default function AstroSvgMap({ planets, signsByHouse }: Props) {
 				key={`${house}-${p.abbr}-${i}`}
 				x={thisX}
 				fontWeight={p.abbr === "As" ? "bold" : "normal"}
-				fill={p.abbr === "As" ? "#8B0000" : "black"}
+				fill={p.abbr === "As" ? "#8B0000" : "currentColor"}
 				style={{ cursor: "pointer" }}
 				onClick={() => handlePlanetClick(p.abbr, p.houses_ruled)}
 			  >
@@ -166,7 +166,8 @@ export default function AstroSvgMap({ planets, signsByHouse }: Props) {
 			textAnchor="middle"
 			dominantBaseline="middle"
 			fontSize="8"
-			fill="#555"
+			fill="currentColor"
+			className="text-gray-500 dark:text-gray-300"
 		  >
 			{items.map((p, i) => (
 			  <tspan
@@ -191,13 +192,14 @@ export default function AstroSvgMap({ planets, signsByHouse }: Props) {
 		  textAnchor="middle"
 		  dominantBaseline="middle"
 		  fontSize="8"
-		  fill="#555"
+		  fill="currentColor"
+		  className="text-gray-500 dark:text-gray-300"
 		>
 		  {items.map((p, i) => (
 			<tspan
 			  key={`${house}-${p.abbr}-deg-${i}`}
 			  x={startX + i * stepDx}
-			  fill={p.abbr === "As" ? "#8B0000" : "#555"}
+			  fill={p.abbr === "As" ? "#8B0000" : "currentColor"}
 			>
 			  {`${p.degree.replace("+", "").slice(0, 2)}°`}
 			</tspan>
@@ -237,7 +239,7 @@ export default function AstroSvgMap({ planets, signsByHouse }: Props) {
           textAnchor="middle"
           dominantBaseline="middle"
           fontSize="10"
-          fill="#555"
+		  className="text-gray-500 dark:text-gray-300"
         >
           {items.map((abbr, i) => (
             <tspan
@@ -259,7 +261,8 @@ export default function AstroSvgMap({ planets, signsByHouse }: Props) {
         textAnchor="middle"
         dominantBaseline="middle"
         fontSize="10"
-        fill="#555"
+        fill="currentColor"
+		className="text-gray-500 dark:text-gray-300"
       >
         {items.map((abbr, i) => (
           <tspan
@@ -283,8 +286,8 @@ export default function AstroSvgMap({ planets, signsByHouse }: Props) {
         textAnchor="middle"
         dominantBaseline="middle"
         fontSize="10"
-        fill="#999"
-        className="pointer-events-none"
+        fill="currentColor"
+        className="pointer-events-none text-gray-400 dark:text-gray-500"
       >
         {sign}
       </text>
@@ -302,7 +305,7 @@ export default function AstroSvgMap({ planets, signsByHouse }: Props) {
 
   return (
     <svg
-      className="astro-chart w-full max-w-xl mx-auto"
+      className="astro-chart w-full max-w-xl mx-auto text-black dark:text-[color:#d4af37]"
       viewBox="0 0 500 500"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -312,7 +315,7 @@ export default function AstroSvgMap({ planets, signsByHouse }: Props) {
         </filter>
       </defs>
 
-      <style>{`.st0{stroke:#000000;stroke-miterlimit:10;}`}</style>
+      <style>{`.st0{stroke:currentColor;stroke-miterlimit:10;}`}</style>
 
       {/* Все 12 домов без изменений */}
       <g id="house-1">

@@ -12,6 +12,7 @@ import {
   TableHead,
   TableCell,
 } from "@/components/ui/table";
+import { ThemeToggle } from "@/components/ThemeToggle"
 
 
 type PlanetData = {
@@ -99,6 +100,9 @@ export default function ChartPage() {
 	return (
 	  <div className="max-w-6xl mx-auto mt-10">
 		<h1 className="text-2xl font-bold mb-6 text-center">Натальная карта</h1>
+		<div className="flex justify-center mb-6">
+		  <ThemeToggle />
+		</div>
 		
 		<Tabs defaultValue="rasi" className="w-full">
 		 <TabsList className="mb-6 mx-auto">
