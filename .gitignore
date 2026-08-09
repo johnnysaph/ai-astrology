@@ -31,3 +31,6 @@ Thumbs.db
 # Logs
 logs/
 *.log
+/books
+/prompts/legacy
+/python-notebooks
