@@ -2,7 +2,9 @@
 
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
+import { ArrowDownToLine, Bomb, Crown, Handshake, Heart, House, Scale, Star, TriangleAlert, type LucideIcon } from 'lucide-react'
 import AstroSvgMap from '@/components/AstroSvgMap'
+import { Progress } from '@/components/ui/progress'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import {
   Table,
@@ -28,6 +30,37 @@ type PlanetData = {
   houses_ruled: number[]
   role: string
   relation: string
+}
+
+const relationIcons: Partial<Record<string, { Icon: LucideIcon; color: string; label: string }>> = {
+  "Большой друг": { Icon: Heart, color: "text-pink-700 dark:text-pink-300", label: "В доме большого друга" },
+  "Друг": { Icon: Handshake, color: "text-green-700 dark:text-green-300", label: "В доме друга" },
+  "Нейтрально": { Icon: Scale, color: "text-slate-600 dark:text-slate-300", label: "В нейтральном доме" },
+  "Враг": { Icon: TriangleAlert, color: "text-amber-700 dark:text-amber-300", label: "В доме врага" },
+  "Большой враг": { Icon: Bomb, color: "text-red-700 dark:text-red-300", label: "В доме большого врага" },
+  "Свой знак": { Icon: House, color: "text-sky-700 dark:text-sky-300", label: "В своем знаке" },
+  "Мулатрикона": { Icon: Star, color: "text-violet-700 dark:text-violet-300", label: "Мулатрикона" },
+  "Экзальтация": { Icon: Crown, color: "text-amber-700 dark:text-amber-300", label: "Экзальтация" },
+  "Падение": { Icon: ArrowDownToLine, color: "text-orange-700 dark:text-orange-300", label: "Дебилитация" },
+}
+
+function PlanetName({ planet }: { planet: PlanetData }) {
+  const relation = relationIcons[planet.relation]
+
+  return (
+    <span className="inline-flex items-center gap-2">
+      {planet.planet}
+      {relation && (
+        <span
+          className="inline-flex rounded border border-border px-1 py-0.5"
+          title={relation.label}
+        >
+          <relation.Icon className={`size-3 ${relation.color}`} aria-hidden="true" />
+          <span className="sr-only">{relation.label}</span>
+        </span>
+      )}
+    </span>
+  )
 }
 
 export default function ChartPage() {
@@ -105,7 +138,12 @@ export default function ChartPage() {
   }
 
   if (!data) {
-    return <p className="text-center mt-10">Загрузка...</p>
+    return (
+      <div className="mx-auto mt-10 w-full max-w-sm space-y-3 px-4 text-center">
+        <p id="chart-loading-label">Загрузка карты…</p>
+        <Progress aria-labelledby="chart-loading-label" />
+      </div>
+    )
   }
 
 	return (
@@ -140,14 +178,13 @@ export default function ChartPage() {
 					  <TableHead>Дом</TableHead>
 					  <TableHead>Управитель</TableHead>
 					  <TableHead>Управляет домами</TableHead>
-					  <TableHead>Отношение</TableHead>
 					  <TableHead>Роль</TableHead>
 					</TableRow>
 				  </TableHeader>
 				  <TableBody>
 					{data.rasi.planets.map((planet, i) => (
 					  <TableRow key={i}>
-						<TableCell>{planet.planet}</TableCell>
+						<TableCell><PlanetName planet={planet} /></TableCell>
 						<TableCell>{planet.sign}</TableCell>
 						<TableCell>{planet.degree}</TableCell>
 						<TableCell>{planet.house}</TableCell>
@@ -157,7 +194,6 @@ export default function ChartPage() {
 							? planet.houses_ruled.join(", ")
 							: "-"}
 						</TableCell>
-						<TableCell>{planet.relation || "-"}</TableCell>
 						<TableCell>{planet.role || "-"}</TableCell>
 					  </TableRow>
 					))}
@@ -185,14 +221,13 @@ export default function ChartPage() {
 					  <TableHead>Дом</TableHead>
 					  <TableHead>Управитель</TableHead>
 					  <TableHead>Управляет домами</TableHead>
-					  <TableHead>Отношение</TableHead>
 					  <TableHead>Роль</TableHead>
 					</TableRow>
 				  </TableHeader>
 				  <TableBody>
 					{data.navamsa.planets.map((planet, i) => (
 					  <TableRow key={i}>
-						<TableCell>{planet.planet}</TableCell>
+						<TableCell><PlanetName planet={planet} /></TableCell>
 						<TableCell>{planet.sign}</TableCell>
 						<TableCell>{planet.degree}</TableCell>
 						<TableCell>{planet.house}</TableCell>
@@ -202,7 +237,6 @@ export default function ChartPage() {
 							? planet.houses_ruled.join(", ")
 							: "-"}
 						</TableCell>
-						<TableCell>{planet.relation || "-"}</TableCell>
 						<TableCell>{planet.role || "-"}</TableCell>
 					  </TableRow>
 					))}
