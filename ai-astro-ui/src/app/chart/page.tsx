@@ -56,8 +56,11 @@ export default function ChartPage() {
     }
 
     const fetchData = async () => {
+      setError(null)
+      setData(null)
       try {
-        const res = await fetch("https://ai-astrology-api.onrender.com/calculate", {
+        const apiUrl = process.env.NEXT_PUBLIC_ASTRO_API_URL || "https://ai-astrology-api.onrender.com"
+        const res = await fetch(`${apiUrl}/calculate`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ date, time, lat: parseFloat(lat), lon: parseFloat(lon) })
@@ -68,7 +71,15 @@ export default function ChartPage() {
         }
 
         const result = await res.json()
-        console.log("🌟 API response:", result)
+        if (typeof result?.error === 'string' && result.error) {
+          setError(`Не удалось рассчитать карту. ${result.error}`)
+          return
+        }
+
+        if (!result?.charts?.rasi || !result?.charts?.navamsa) {
+          setError("Сервер не вернул данные карт D1 и D9.")
+          return
+        }
 
         setData({
 		  rasi: {

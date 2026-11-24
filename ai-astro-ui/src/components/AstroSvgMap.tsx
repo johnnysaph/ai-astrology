@@ -101,7 +101,7 @@ export default function AstroSvgMap({ planets, signsByHouse }: Props) {
 				dy={i === 0 ? `${initialDy}px` : `${stepDy}px`}
 				fontWeight={p.abbr === "As" ? "bold" : "normal"}
 				fill={p.abbr === "As" ? "#8B0000" : "currentColor"}
-				style={{ cursor: "pointer" }}
+				style={{ cursor: ["Ra", "Ke", "As"].includes(p.abbr) ? "default" : "pointer" }}
 				onClick={() => handlePlanetClick(p.abbr, p.houses_ruled)}
 			  >
 				{p.abbr}
@@ -135,7 +135,7 @@ export default function AstroSvgMap({ planets, signsByHouse }: Props) {
 				x={thisX}
 				fontWeight={p.abbr === "As" ? "bold" : "normal"}
 				fill={p.abbr === "As" ? "#8B0000" : "currentColor"}
-				style={{ cursor: "pointer" }}
+				style={{ cursor: ["Ra", "Ke", "As"].includes(p.abbr) ? "default" : "pointer" }}
 				onClick={() => handlePlanetClick(p.abbr, p.houses_ruled)}
 			  >
 				{p.abbr}
@@ -239,6 +239,7 @@ export default function AstroSvgMap({ planets, signsByHouse }: Props) {
           textAnchor="middle"
           dominantBaseline="middle"
           fontSize="10"
+		  fill="currentColor"
 		  className="text-gray-500 dark:text-gray-300"
         >
           {items.map((abbr, i) => (
@@ -298,20 +299,20 @@ export default function AstroSvgMap({ planets, signsByHouse }: Props) {
     const shouldGlow = highlightedHouses.includes(house);
     return React.cloneElement(shape, {
       filter: shouldGlow ? "url(#glow)" : undefined,
-      fill: shouldGlow ? "gold" : "none",
+      fill: shouldGlow ? "var(--chart-highlight)" : "none",
       fillOpacity: shouldGlow ? 0.15 : 0,
     });
   };
 
   return (
     <svg
-      className="astro-chart w-full max-w-xl mx-auto text-black dark:text-[color:#d4af37]"
-      viewBox="0 0 500 500"
+      className="astro-chart w-full max-w-xl mx-auto text-black dark:text-[color:#d4af37] [--chart-highlight:#38bdf8] dark:[--chart-highlight:gold]"
+      viewBox="-2 -2 504 504"
       xmlns="http://www.w3.org/2000/svg"
     >
       <defs>
         <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-          <feDropShadow dx="0" dy="0" stdDeviation="3" floodColor="gold" />
+          <feDropShadow dx="0" dy="0" stdDeviation="3" floodColor="var(--chart-highlight)" />
         </filter>
       </defs>
 

@@ -122,7 +122,7 @@ export function BirthForm() {
           }}
         />
         {suggestions.length > 0 && (
-          <div className="absolute z-10 w-full bg-white border rounded shadow mt-1 max-h-48 overflow-auto text-sm">
+          <div className="absolute z-10 w-full bg-white text-black border rounded shadow mt-1 max-h-48 overflow-auto text-sm">
             {suggestions.map((s, i) => (
               <div
                 key={i}
