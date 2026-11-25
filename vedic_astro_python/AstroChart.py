@@ -1,9 +1,14 @@
 #from jhora.utils import julian_day_number
-#from jhora.horoscope.chart.charts import rasi_chart, navamsa_chart
+from jhora.horoscope.chart.charts import (
+    divisional_chart_functions,
+    divisional_positions_from_rasi_positions,
+)
 #import jhora.const as const
 #import jhora.panchanga.drik as drik
 #from jhora.panchanga.drik import Place
 from vedicastro.VedicAstro import VedicHoroscopeData
+from flatlib.const import NORTH_NODE, SOUTH_NODE
+from flatlib.ephem.swe import SWE_AYANAMSAS
 from timezonefinder import TimezoneFinder
 from datetime import datetime
 import requests
@@ -470,7 +475,29 @@ class AstroChart:
             house_system="Placidus"
         )
         self.chart = self.vhd.generate_chart()
+        self._set_true_lunar_nodes()
         self.planets_data = self.vhd.get_planets_data_from_chart(self.chart)
+
+    def _set_true_lunar_nodes(self):
+        flags = swe.FLG_SWIEPH | swe.FLG_SPEED
+        ayanamsa = self.vhd.get_ayanamsa()
+        if ayanamsa:
+            swe.set_sid_mode(SWE_AYANAMSAS[ayanamsa], 0, 0)
+            flags |= swe.FLG_SIDEREAL
+
+        position, _ = swe.calc_ut(self.chart.date.jd, swe.TRUE_NODE, flags)
+        longitude, latitude, _, longitude_speed, latitude_speed, _ = position
+        rahu = self.chart.getObject(NORTH_NODE)
+        rahu.relocate(longitude)
+        rahu.lat = latitude
+        rahu.lonspeed = longitude_speed
+        rahu.latspeed = latitude_speed
+
+        ketu = self.chart.getObject(SOUTH_NODE)
+        ketu.relocate(longitude + 180)
+        ketu.lat = -latitude
+        ketu.lonspeed = longitude_speed
+        ketu.latspeed = -latitude_speed
     
     def get_ayanamsa(self):
         return self.vhd.get_ayanamsa()
@@ -527,9 +554,20 @@ class AstroChart:
         
         return df
 
+    def build_moon_chart(self, df_d1: pd.DataFrame) -> pd.DataFrame:
+        """Строит лунную карту, принимая знак Луны за первый дом."""
+        chart = self._add_house_info(df_d1, first_house_planet="Луна")
+        chart = self._add_aspects(chart)
+        moon_sign = chart.loc[chart["Планета"] == "Луна", "Знак"].iloc[0]
+        moon_sign_number = sign_order[moon_sign] + 1
+        chart["Роль"] = chart["Планета"].apply(
+            lambda planet: get_planet_role(planet, moon_sign_number)
+        )
+        return chart
+
     def _build_sign_to_house_map(self, df):
-        ascendant_sign = df.at[0, 'Знак']
-        j = sign_order[ascendant_sign] + 1
+        first_house_sign = df.loc[df["Дом"] == 1, "Знак"].iloc[0]
+        j = sign_order[first_house_sign] + 1
         sign_to_house = {}
         for i in range(1, 13):
             sign_to_house[i] = j
@@ -554,13 +592,13 @@ class AstroChart:
     def _filter_main_grahas(self, df):
         return df[df["Планета"].isin(main_grahas)].reset_index(drop=True)
         
-    def _add_house_info(self, df):
-        asc_row = df[df["Планета"] == "Асцендент"]
-        if asc_row.empty:
-            raise ValueError("В DataFrame нет строки с Асцендентом")
-        asc_sign = asc_row.iloc[0]["Знак"]
-        rasi_from_asc = rasi_order[rasi_order.index(asc_sign):] + rasi_order[:rasi_order.index(asc_sign)]
-        sign_to_house = {sign: i + 1 for i, sign in enumerate(rasi_from_asc)}
+    def _add_house_info(self, df, first_house_planet="Асцендент"):
+        reference = df.loc[df["Планета"] == first_house_planet, "Знак"]
+        if reference.empty:
+            raise ValueError(f"В DataFrame нет строки для первого дома: {first_house_planet}")
+        first_house_index = rasi_order.index(reference.iloc[0])
+        ordered_signs = rasi_order[first_house_index:] + rasi_order[:first_house_index]
+        sign_to_house = {sign: i + 1 for i, sign in enumerate(ordered_signs)}
 
         def planet_house(zodiac_sign):
             return sign_to_house.get(zodiac_sign, np.nan)
@@ -644,85 +682,63 @@ class AstroChart:
         s = int(round((m_float - m) * 60))
         return f"+{d:02d}:{m:02d}:{s:02d}"
 
-    def build_navamsa_chart(self, df_d1: pd.DataFrame):
-        """
-        Строит таблицу D9 (Навамша) на основе D1, используя Traditional Parasara Method.
-        Возвращает DataFrame с колонками: Планета, Знак D9, Градусы D9
-        """
-        navamsa_dict = {
-            0: (1, ["Овен", "Лев", "Стрелец"]),      # fire
-            3: (1, ["Рак", "Скорпион", "Рыбы"]),     # water
-            6: (1, ["Близнецы", "Весы", "Водолей"]), # air
-            9: (1, ["Телец", "Дева", "Козерог"]),    # earth
-        }
-    
-        records = []
-    
+    def build_navamsa_chart(self, df_d1: pd.DataFrame) -> pd.DataFrame:
+        """Строит Навамшу традиционным методом Парашары."""
+        chart = self.build_divisional_chart(df_d1, division=9, chart_method=1)
+        self.navamsa_planet_to_house_map = chart.set_index("Планета")["Дом"].to_dict()
+        return chart
+
+    def build_divisional_chart(
+        self, df_d1: pd.DataFrame, division: int, chart_method: int = 1
+    ) -> pd.DataFrame:
+        """Строит поддерживаемую PyJHora дробную карту из положений D1."""
+        if division not in divisional_chart_functions:
+            raise ValueError(f"Дробная карта D{division} не поддерживается")
+
+        positions = []
         for _, row in df_d1.iterrows():
-            planet = row["Планета"]
             sign = row["Знак"]
-            dms_str = row["Градусы"] if "Градусы" in row else row.get("SignLonDMS")
-    
-            if pd.isnull(dms_str) or sign not in sign_order:
+            dms = row.get("Градусы", row.get("SignLonDMS"))
+            if pd.isnull(dms) or sign not in sign_order:
                 continue
-    
-            # Преобразование DMS в десятичные градусы
+
             try:
-                parts = list(map(int, dms_str.replace("+", "").replace("°", "").replace("'", "").replace("\"", "").split(":")))
-                deg = parts[0] + parts[1] / 60 + parts[2] / 3600
-            except Exception:
+                degrees, minutes, seconds = map(
+                    int, dms.translate(str.maketrans("", "", "+°'\"")).split(":")
+                )
+            except (AttributeError, ValueError):
                 continue
-    
-            # 1. Промежуточные величины
-            long = deg
-            dvf = 9
-            f1 = 30.0 / dvf
-            d_long = (long * dvf) % 30
-            l = int(long // f1)
-            sign_index = sign_order[sign]
-    
-            # 2. Вычисление знака Навамши
-            try:
-                r = [
-                    (seed + dirn * l) % 12
-                    for seed, (dirn, sign_list) in navamsa_dict.items()
-                    if sign in sign_list
-                ][0]
-            except IndexError:
-                continue  # если знак не найден в navamsa_dict
-    
-            # 3. Запись результата
-            sign_d9_eng = list(sign_map.keys())[r]
-            sign_d9_rus = sign_map[sign_d9_eng]
-            dms_d9 = self.decimal_to_dms(d_long)
-    
-            records.append({
-                "Планета": planet,
-                "Знак": sign_d9_rus,
-                "Градусы": dms_d9
-            })
-            
-        navamsa_chart = pd.DataFrame(records)
-            
-        # Абревиатура
-        navamsa_chart["Абр"] = navamsa_chart["Планета"].apply(lambda x: planet_abbr[x])
-            
-        # управитель
-        navamsa_chart["Управитель"] = navamsa_chart["Знак"].apply(lambda x: sign_lords[x])
-            
-        # дома
-        navamsa_chart = self._add_house_info(navamsa_chart)
-        self.navamsa_planet_to_house_map = navamsa_chart.set_index("Планета")["Дом"].to_dict()
-            
-        # аспекты
-        navamsa_chart = self._add_aspects(navamsa_chart)
-                
-        # отношения
-        navamsa_chart["Отношение"] = navamsa_chart.apply(lambda row: get_combined_relationship(row, self.navamsa_planet_to_house_map), axis=1)
-        
-        # роль
-        ascendant_sign = navamsa_chart.at[0, 'Знак']
+
+            longitude = degrees + minutes / 60 + seconds / 3600
+            positions.append([row["Планета"], [sign_order[sign], longitude]])
+
+        divisional_positions = divisional_positions_from_rasi_positions(
+            positions, divisional_chart_factor=division, chart_method=chart_method
+        )
+        chart = pd.DataFrame(
+            [
+                {
+                    "Планета": planet,
+                    "Знак": rasi_order[sign],
+                    "Градусы": self.decimal_to_dms(longitude),
+                }
+                for planet, (sign, longitude) in divisional_positions
+            ],
+            columns=["Планета", "Знак", "Градусы"],
+        )
+        chart["Абр"] = chart["Планета"].map(planet_abbr)
+        chart["Управитель"] = chart["Знак"].map(sign_lords)
+
+        chart = self._add_house_info(chart)
+        chart = self._add_aspects(chart)
+        planet_to_house = chart.set_index("Планета")["Дом"].to_dict()
+        chart["Отношение"] = chart.apply(
+            lambda row: get_combined_relationship(row, planet_to_house), axis=1
+        )
+
+        ascendant_sign = chart.loc[chart["Планета"] == "Асцендент", "Знак"].iloc[0]
         ascendant_number = sign_order[ascendant_sign] + 1
-        navamsa_chart["Роль"] = navamsa_chart.apply(lambda row: get_planet_role(row['Планета'], ascendant_number), axis=1)
-    
-        return navamsa_chart
+        chart["Роль"] = chart["Планета"].apply(
+            lambda planet: get_planet_role(planet, ascendant_number)
+        )
+        return chart

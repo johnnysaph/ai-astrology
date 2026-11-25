@@ -100,7 +100,7 @@ export default function AstroSvgMap({ planets, signsByHouse }: Props) {
 				x={x}
 				dy={i === 0 ? `${initialDy}px` : `${stepDy}px`}
 				fontWeight={p.abbr === "As" ? "bold" : "normal"}
-				fill={p.abbr === "As" ? "#8B0000" : "currentColor"}
+				fill={p.abbr === "As" ? "var(--chart-ascendant)" : "currentColor"}
 				style={{ cursor: ["Ra", "Ke", "As"].includes(p.abbr) ? "default" : "pointer" }}
 				onClick={() => handlePlanetClick(p.abbr, p.houses_ruled)}
 			  >
@@ -134,7 +134,7 @@ export default function AstroSvgMap({ planets, signsByHouse }: Props) {
 				key={`${house}-${p.abbr}-${i}`}
 				x={thisX}
 				fontWeight={p.abbr === "As" ? "bold" : "normal"}
-				fill={p.abbr === "As" ? "#8B0000" : "currentColor"}
+				fill={p.abbr === "As" ? "var(--chart-ascendant)" : "currentColor"}
 				style={{ cursor: ["Ra", "Ke", "As"].includes(p.abbr) ? "default" : "pointer" }}
 				onClick={() => handlePlanetClick(p.abbr, p.houses_ruled)}
 			  >
@@ -199,7 +199,7 @@ export default function AstroSvgMap({ planets, signsByHouse }: Props) {
 			<tspan
 			  key={`${house}-${p.abbr}-deg-${i}`}
 			  x={startX + i * stepDx}
-			  fill={p.abbr === "As" ? "#8B0000" : "currentColor"}
+			  fill={p.abbr === "As" ? "var(--chart-ascendant)" : "currentColor"}
 			>
 			  {`${p.degree.replace("+", "").slice(0, 2)}°`}
 			</tspan>
@@ -306,7 +306,7 @@ export default function AstroSvgMap({ planets, signsByHouse }: Props) {
 
   return (
     <svg
-      className="astro-chart w-full max-w-xl mx-auto text-black dark:text-[color:#d4af37] [--chart-highlight:#38bdf8] dark:[--chart-highlight:gold]"
+      className="astro-chart block size-full text-[color:var(--chart-planet)]"
       viewBox="-2 -2 504 504"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -316,7 +316,7 @@ export default function AstroSvgMap({ planets, signsByHouse }: Props) {
         </filter>
       </defs>
 
-      <style>{`.st0{stroke:currentColor;stroke-miterlimit:10;}`}</style>
+      <style>{`.astro-chart .st0{stroke:var(--chart-line);stroke-miterlimit:10;}`}</style>
 
       {/* Все 12 домов без изменений */}
       <g id="house-1">

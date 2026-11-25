@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-from AstroChart import AstroChart
+from AstroChart import AstroChart, divisional_chart_functions
 from fastapi.middleware.cors import CORSMiddleware
 from datetime import datetime
 import pandas as pd
@@ -80,17 +80,13 @@ def calculate(data: BirthData):
         rasi_chart = astroChart.build_rasi_chart()
         navamsa_chart = astroChart.build_navamsa_chart(rasi_chart)
 
-        # API ответ
-        api_result = build_api_response(
-            astroChart,
-            {
-                "rasi": rasi_chart,
-                "navamsa": navamsa_chart
-            },
-            ayanamsa="Lahiri"
-        )
+        charts = {"rasi": rasi_chart, "navamsa": navamsa_chart}
+        for division in sorted(divisional_chart_functions):
+            if division != 9:
+                charts[f"d{division}"] = astroChart.build_divisional_chart(rasi_chart, division)
 
-        return api_result
+        charts["moon"] = astroChart.build_moon_chart(rasi_chart)
+        return build_api_response(astroChart, charts, ayanamsa="Lahiri")
 
     except Exception as e:
         return {"error": str(e)}
